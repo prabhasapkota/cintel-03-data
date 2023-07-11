@@ -33,9 +33,9 @@ That's black space dot. The single dot means the current folder.
 
 Verify your virtual environment is activated. Run the app. 
 
-```shell
+
 shiny run --reload app.py
-```
+
 
 Open the app by following the instructions provided in the terminal. 
 For example, CTRL click on the URL displayed (http://127.0.0.1:8000).
