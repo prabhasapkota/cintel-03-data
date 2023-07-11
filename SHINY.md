@@ -5,7 +5,7 @@ We follow the same, consistent process to create and deploy a new Shiny app. Rep
 ## Create a Virtual Environment
 
 
-python -m venv .venv
+python3 -m venv .venv
 
 
 ## Activate the Virtual Environment
@@ -16,9 +16,9 @@ python -m venv .venv
 ## Install Libraries into Virtual Environment
 
 ```shell
-python -m pip install --upgrade pip wheel 
-python -m pip install --upgrade black ruff pyright
-python -m pip install --upgrade -r requirements.txt
+python3 -m pip install --upgrade pip wheel 
+python3 -m pip install --upgrade black ruff pyright
+python3 -m pip install --upgrade -r requirements.txt
 ```
 
 🚀 Rocket Tip: When installing packages, spend a bit of time finding out what they are, where they go, and how you can use them to improve your work. 
