@@ -41,5 +41,10 @@ mtcars_df = pd.read_csv(data_folder.joinpath("mtcars.csv"))
 mtcars_df.to_excel(data_folder.joinpath("mtcars.xlsx"))
 
 
-# url="https://webpath/to/your/data.csv"
-# df=pd.read_csv(url)
+iris_df = sns.load_dataset("iris")
+iris_df.to_excel(data_folder.joinpath("iris.xlsx"))
+iris_df.to_csv(data_folder.joinpath("iris.csv"))  
+
+url="https://github.com/mwaskom/seaborn-data/blob/master/iris.csv"
+# iris_df=pd.read_csv('https://github.com/mwaskom/seaborn-data/blob/master/iris.csv')
+
