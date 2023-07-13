@@ -1,6 +1,6 @@
 # Interactive Analytics with Shiny
 
-We follow the same, consistent process to create and deploy a new Shiny app. Repeating these common tasks helps build skills and comfort with professional tools and processes. The instructions become more concise as we repeat things. For more detailed instructions, refer back to the earlier [SHINY.md](https://github.com/denisecase/cintel-02-app/blob/main/SHINY.md).
+We follow the same, consistent process to create and deploy a new Shiny app. Repeating these common tasks helps build skills and comfort with professional tools and processes. The instructions become more concise as we repeat things. For more detailed instructions, refer back to the earlier [SHINY.md](https://github.com/prabhasapkota/cintel-02-app/blob/main/SHINY.md).
 
 ## Create a Virtual Environment
 
@@ -52,7 +52,7 @@ and configure the same 3 repository secrets as we did for our last repo.
 The keys and values are exactly the same. 
 Login to [shinyapps.io](https://www.shinyapps.io/) to retrieve the values (you cannot retrieve them from GitHub). I log in via my GitHub account so I don't have to look up a password each time we do this. Go to Account / Tokens to find the values.
 
-See the earlier [SHINYAPPS.md](https://github.com/denisecase/cintel-02-app/blob/main/SHINYAPPS.md) for details.
+See the earlier [SHINYAPPS.md](https://github.com/prabhasapkota/cintel-02-app/blob/main/SHINYAPPS.md) for details.
 
 - Name: SHINYAPPS_ACCOUNT
 - Secret: Paste or type your shinyapps.io account name.
