@@ -96,7 +96,7 @@ def server(input, output, session):
     @output
     @render.text
     def insights_output():
-        answer = input.language_input()
+        answer = input.location_input()
         count = len(answer)
         language_string = f"You are from {answer}. That takes {count} characters"
         return language_string
