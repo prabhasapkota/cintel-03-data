@@ -24,19 +24,19 @@ from util_logger import setup_logger
 logger, logname = setup_logger(__name__)
 
 app_ui = ui.page_navbar(
-    shinyswatch.theme.lumen(),
+    shinyswatch.theme.vapor(),
     ui.nav(
         "Home",
         ui.layout_sidebar(
             ui.panel_sidebar(
-                ui.h2("Sidebar Panel"),
+                ui.h2("Let's Start Here!"),
                 ui.tags.hr(),
-                ui.h3("User Interaction Here"),
+                ui.h3("Please, fill out the information"),
                 ui.input_text("name_input", "Enter your name", placeholder="Your Name"),
                 ui.input_text(
-                    "language_input",
-                    "Enter your favorite language(s)",
-                    placeholder="Favorite Programming Language(s)",
+                    "location_input",
+                    "Enter your location",
+                    placeholder="Enter your location",
                 ),
                 ui.tags.hr(),
             ),
@@ -74,12 +74,12 @@ app_ui = ui.page_navbar(
             get_penguins_outputs(),
         ),
     ),
-    ui.nav(ui.a("About", href="https://github.com/denisecase")),
-    ui.nav(ui.a("GitHub", href="https://github.com/denisecase/cintel-03-data")),
-    ui.nav(ui.a("App", href="https://denisecase.shinyapps.io/cintel-03-data/")),
+    ui.nav(ui.a("About", href="https://github.com/prabhasapkota")),
+    ui.nav(ui.a("GitHub", href="https://github.com/prabhasapkota/cintel-03-data")),
+    ui.nav(ui.a("App", href="https://prabha23.shinyapps.io/cintel-03-data/")),
     ui.nav(ui.a("Examples", href="https://shinylive.io/py/examples/")),
     ui.nav(ui.a("Themes", href="https://bootswatch.com/")),
-    title=ui.h1("Case Dashboard"),
+    title=ui.h1("Prabha Dashboard"),
 )
 
 
@@ -90,7 +90,7 @@ def server(input, output, session):
     @render.text
     def welcome_output():
         user = input.name_input()
-        welcome_string = f"Greetings {user}!"
+        welcome_string = f"Welcome {user}!"
         return welcome_string
 
     @output
@@ -98,7 +98,7 @@ def server(input, output, session):
     def insights_output():
         answer = input.language_input()
         count = len(answer)
-        language_string = f"You like {answer}. That takes {count} characters"
+        language_string = f"You are from {answer}. That takes {count} characters"
         return language_string
 
     get_mtcars_server_functions(input, output, session)
