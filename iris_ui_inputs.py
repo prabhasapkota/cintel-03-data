@@ -10,11 +10,11 @@ def get_iris_inputs():
         ui.h2("Iris Interaction"),
         ui.tags.hr(),
         ui.input_slider(
-            "IRIS_PETAL_LENGTH_RANGE",
-            "Petal Length (cm)",
-            min=10,
-            max=35,
-            value=[10, 35],
+            "IRIS_Sepal_LENGTH_RANGE",
+            "Sepal Length (cm)",
+            min=2,
+            max=8,
+            value=[2, 8],
         ),
         
         ui.p("🕒 Please be patient. Outputs may take a few seconds to load."),
