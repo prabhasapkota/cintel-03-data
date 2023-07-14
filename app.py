@@ -19,6 +19,10 @@ from penguins_server import get_penguins_server_functions
 from penguins_ui_inputs import get_penguins_inputs
 from penguins_ui_outputs import get_penguins_outputs
 
+from iris_server import get_iris_server_functions
+from iris_ui_inputs import get_iris_inputs
+from iris_ui_outputs import get_iris_outputs
+
 from util_logger import setup_logger
 
 logger, logname = setup_logger(__name__)
@@ -74,6 +78,13 @@ app_ui = ui.page_navbar(
             get_penguins_outputs(),
         ),
     ),
+    ui.nav(
+        "Iris",
+        ui.layout_sidebar(
+            get_iris_inputs(),
+            get_iris_outputs(),
+        ),
+    ),
     ui.nav(ui.a("About", href="https://github.com/prabhasapkota")),
     ui.nav(ui.a("GitHub", href="https://github.com/prabhasapkota/cintel-03-data")),
     ui.nav(ui.a("App", href="https://prabha23.shinyapps.io/cintel-03-data/")),
@@ -103,6 +114,7 @@ def server(input, output, session):
 
     get_mtcars_server_functions(input, output, session)
     get_penguins_server_functions(input, output, session)
+    get_iris_server_functions(input, output, session)
 
 
 app = App(app_ui, server)
