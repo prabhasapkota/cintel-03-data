@@ -28,7 +28,7 @@ from util_logger import setup_logger
 logger, logname = setup_logger(__name__)
 
 app_ui = ui.page_navbar(
-    shinyswatch.theme.vapor(),
+    shinyswatch.theme.zephyr(),
     ui.nav(
         "Home",
         ui.layout_sidebar(
@@ -49,13 +49,13 @@ app_ui = ui.page_navbar(
                 ui.tags.hr(),
                 ui.tags.ul(
                     ui.tags.li(
-                        "To explore MotorTrend Car dataset, click the 'MT_Cars' tab."
+                        "To explore the MotorTrend Car dataset, click the 'MT_Cars' tab."
                     ),
                     ui.tags.li(
                         "To explore the Penguins Dataset, click the 'Penguins' tab."
                     ),
                     ui.tags.li(
-                        "To explore the Iris dataset, click the 'Iris' tab."
+                        "To explore the Iris Dataset, click the 'Iris' tab."
                     ),
     ),
                 ui.tags.hr(),
