@@ -15,6 +15,7 @@ from shinywidgets import render_widget
 import plotly.express as px
 
 
+
 from util_logger import setup_logger
 
 logger, logname = setup_logger(__name__)
@@ -34,7 +35,7 @@ def get_mtcars_server_functions(input, output, session):
     @reactive.Effect
     @reactive.event(
         input.MTCARS_MPG_RANGE,
-    
+        input.MTCARS_MAX_HP,
     )
     def _():
         df = original_df.copy()
@@ -51,7 +52,8 @@ def get_mtcars_server_functions(input, output, session):
         mtcars_mpg_filter = (df["mpg"] >= input_min) & (df["mpg"] <= input_max)
         df = df[mtcars_mpg_filter]
 
-    
+        horse_power_filter = df["hp"] < input.MTCARS_MAX_HP()
+        df = df[horse_power_filter]
 
 
         # Set the reactive value
