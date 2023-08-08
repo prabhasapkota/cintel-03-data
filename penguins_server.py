@@ -9,9 +9,12 @@ to this server code is critical. They are case sensitive and must match exactly.
 
 """
 import pathlib
-from shiny import render
+from shiny import render, reactive
 import pandas as pd
 import seaborn as sns
+from shinywidgets import render_widget
+import plotly.express as px
+
 
 from util_logger import setup_logger
 
@@ -27,130 +30,64 @@ def get_penguins_server_functions(input, output, session):
     original_df = pd.read_excel(path_to_data)
     total_count = len(original_df)
 
-    @output
-    @render.table
-    def penguins_table():
-        return original_df
+# Create a reactive value to hold the filtered pandas dataframe
+    reactive_df = reactive.Value()
 
-    @output
-    @render.text
-    def penguins_record_count_string():
-        message = f"Showing {total_count} records"
-        logger.debug(f"filter message: {message}")
-        return message
+    # Create a reactive effect to set the reactive value when inputs change
+    # List all the inputs that should trigger this update
 
-    @output
-    @render.text
-    def penguin_filter_string():
-        input_mass_range = input.PENGUIN_BODY_MASS_RANGE()
-        input_min = input_mass_range[0]
-        input_max = input_mass_range[1]
-        filter_string = f"Body mass between {input_min} and {input_max}"
-        return filter_string
+    @reactive.Effect
+    @reactive.event(
+        input.PENGUIN_BODY_MASS_RANGE,
+        input.PENGUIN_MAX_BILL,
+    )
 
-    @output
-    @render.text
-    def penguins_filtered_record_count_string():
-        logger.debug("Triggered penguin_filter_record_count_string")
+    def _():
+        """Reactive effect to update the filtered dataframe when inputs change.
+        This is the only way to set a reactive value (after initialization).
+        It doesn't need a name, because no one calls it directly."""
+
+        # logger.info("UI inputs changed. Updating penguins reactive df")
+
         df = original_df.copy()
-        input_mass_range = input.PENGUIN_BODY_MASS_RANGE()
-        input_min = input_mass_range[0]
-        input_max = input_mass_range[1]
-        condition1 = df["body_mass_g"] >= input_min
-        condition2 = df["body_mass_g"] <= input_max
-        filter = condition1 & condition2
-        df = df[filter]
-        filtered_records = len(df)
-        record_count_string = (
-            f"Filter shows {filtered_records} of {total_count} records"
+        
+        # Body mass is a range
+        input_range = input.PENGUIN_BODY_MASS_RANGE()
+        input_min = input_range[0]
+        input_max = input_range[1]
+        body_mass_filter = (df["body_mass_g"] >= input_min) & (
+            df["body_mass_g"] <= input_max
         )
-        return record_count_string
+        df = df[body_mass_filter]
+
+        # Bill length is a max number
+        bill_length_filter = df["bill_length_mm"] <= input.PENGUIN_MAX_BILL()
+        df = df[bill_length_filter]
+
+        
+        # logger.debug(f"filtered penguins df: {df}")
+        reactive_df.set(df)
 
     @output
     @render.table
     def penguins_filtered_table():
-        logger.debug("Triggered penguins_filtered_table")
-        df = original_df.copy()
-        input_mass_range = input.PENGUIN_BODY_MASS_RANGE()
-        input_min = input_mass_range[0]
-        input_max = input_mass_range[1]
-        condition1 = df["body_mass_g"] >= input_min
-        condition2 = df["body_mass_g"] <= input_max
-        filter = condition1 & condition2
-        df = df[filter]
-        return df
-
+        filtered_df = reactive_df.get()
+        return filtered_df
+    
     @output
     @render.text
-    def penguins_stats():
-        """Generate and present summary statistics using pandas describe() method
-        and by calling value_counts() on the species column."""
+    def penguins_record_count_string():
+        # logger.debug("Triggered: penguins_filter_record_count_string")
+        filtered_count = len(reactive_df.get())
+        message = f"Showing {filtered_count} of {total_count} records"
+        # logger.debug(f"filter message: {message}")
+        return message
 
-        desc = original_df.describe()
-        formatted_desc = desc.applymap("{0:.2f}".format)
-        part1 = formatted_desc.to_string()
 
-        # Generate value counts for 'species' column
-        value_counts = original_df["species"].value_counts().to_string()
-        blank_line = "\n\n"
-        part2 = "Value Counts for Species" + blank_line + value_counts
-        reply = part1 + blank_line + part2 + blank_line
-        return reply
-
-    @output
-    @render.plot
-    def penguins_pairplots():
-        """Seaborn pairplot creates a grid of plots -
-        each variable shares the
-        y-axes across the row and the x-axes across a column.
-        Diagonals show the distribution of data for that column.
-        Seaborn charts aren't interactive, but they look nice.
-        Don't worry about the formatting -
-        we'll look at more interactive options in the next module."""
-
-        df = original_df
-
-        # Drop the 'Unnamed' index column
-        df = df.drop(columns=["Unnamed: 0"])
-
-        sns.set_theme(style="ticks")
-        pairplot_grid = sns.pairplot(df, hue="species")
-        return pairplot_grid
-
-    @output
-    @render.plot
-    def penguins_scatterplot1():
-        """
-        Use Seaborn to make a quick scatterplot.
-        Provide a pandas DataFrame and the names of the columns to plot.
-        Learn more at https://stackabuse.com/seaborn-scatter-plot-tutorial-and-examples/
-        """
-
-        df = original_df.copy()
-        input_mass_range = input.PENGUIN_BODY_MASS_RANGE()
-        input_min = input_mass_range[0]
-        input_max = input_mass_range[1]
-        condition1 = df["body_mass_g"] >= input_min
-        condition2 = df["body_mass_g"] <= input_max
-        filter = condition1 & condition2
-        df = df[filter]
-
-        plt = sns.scatterplot(
-            data=df,
-            x="bill_length_mm",
-            y="body_mass_g",
-            hue="species",
-            style="sex",
-        )
-        return plt
+   
 
     # return a list of function names for use in reactive outputs
     return [
-        penguins_table,
-        penguins_record_count_string,
-        penguins_stats,
         penguins_filtered_table,
-        penguins_filtered_record_count_string,
-        penguins_pairplots,
-        penguins_scatterplot1,
+        penguins_record_count_string,
     ]
