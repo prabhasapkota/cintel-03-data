@@ -10,7 +10,7 @@ def get_iris_inputs():
         ui.h2("Iris Interaction"),
         ui.tags.hr(),
         ui.input_slider(
-            "IRIS_Sepal_LENGTH_RANGE",
+            "IRIS_SEPAL_LENGTH_RANGE",
             "Sepal Length (cm)",
             min=2,
             max=8,
