@@ -82,6 +82,7 @@ def get_penguins_server_functions(input, output, session):
         message = f"Showing {filtered_count} of {total_count} records"
         # logger.debug(f"filter message: {message}")
         return message
+    
     @output
     @render_widget
     def penguins_output_widget1():
@@ -102,8 +103,8 @@ def get_penguins_server_functions(input, output, session):
     
     # return a list of function names for use in reactive outputs
     return [
-        penguins_record_count_string,
         penguins_filtered_table,
+        penguins_record_count_string,
         penguins_output_widget1,
     ]
 
