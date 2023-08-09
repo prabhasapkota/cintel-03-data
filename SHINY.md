@@ -10,7 +10,6 @@ python3 -m venv .venv
 
 ## Activate the Virtual Environment
 
-- Activate it on Windows: `.venv\Scripts\activate`
 - Activate it on macOS/Linux `source .venv/bin/`
 
 ## Install Libraries into Virtual Environment
