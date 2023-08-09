@@ -29,59 +29,39 @@ def get_iris_server_functions(input, output, session):
     # Use the len() function to get the number of rows in the DataFrame.
     total_count = len(original_df)
 
-    reactive_df = reactive.Value()
-
-    @reactive.Effect
-    @reactive.event(input.IRIS_SEPAL_LENGTH_RANGE,)
-
-    def _():
-        df = original_df.copy()
-
-        input_range = input.IRIS_SEPAL_LENGTH_RANGE()
-        input_min = input_range[0]
-        input_max = input_range[1]
-        
-        iris_sepal_length_filter = (df["sepal_length"] > input_min) & (df["sepal_length"] < input_max)
-        df = df[iris_sepal_length_filter]
-
-         # Set the reactive value
-        reactive_df.set(df)
+   
 
     @output
     @render.table
-    def iris_filtered_table():
-        filtered_df = reactive_df.get()
-        return filtered_df
+    def iris_table():
+        return original_df
 
 
     @output
     @render.text
     def iris_record_count_string():
-        filtered_df = reactive_df.get()
-        filtered_count = len(filtered_df)
-        message = f"Showing {filtered_count} of {total_count} records"
-        #logger.debug(f"filter message: {message}")
+        message = f"Showing {total_count} records"
+        logger.debug(f"filter message: {message}")
         return message
     
     @output
-    @render_widget
-    def iris_output_widget1():
-        df = reactive_df.get()
-        px_plot = px.scatter(
-            df,
+    @render.plot
+    def iris_plot():
+        """
+        Use Seaborn to make a quick scatterplot.
+        Provide a pandas DataFrame and the names of the columns to plot.
+        """
+        plt = sns.scatterplot(
+            data=original_df,
             x="sepal_length",
             y="sepal_width",
-            title="Iris Scatter Chart (Plotly Express)",
-            color="species",
         )
-        return px_plot
-
-    
-
+        return plt
 
     # Return a list of function names for use in reactive outputs
     functions = [
-        iris_filtered_table,
+        iris_table,
         iris_record_count_string,
-        iris_output_widget1,
+        iris_plot,
     ]
+    
