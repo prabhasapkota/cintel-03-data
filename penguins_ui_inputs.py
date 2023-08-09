@@ -13,6 +13,7 @@ Preface IDs with the dataset name to avoid naming conflicts.
 from shiny import ui
 
 
+
 def get_penguins_inputs():
     return ui.panel_sidebar(
         ui.h2("Penguins Interaction"),
