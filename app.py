@@ -24,6 +24,12 @@ from iris_ui_inputs import get_iris_inputs
 from iris_ui_outputs import get_iris_outputs
 
 
+from flights_server import get_flights_server_functions
+from flights_ui_inputs import get_flights_inputs
+from flights_ui_outputs import get_flights_outputs
+
+
+
 from util_logger import setup_logger
 
 logger, logname = setup_logger(__name__)
@@ -58,6 +64,9 @@ app_ui = ui.page_navbar(
                     ui.tags.li(
                         "To explore the Iris Dataset, click the 'Iris' tab."
                     ),
+                    ui.tags.li(
+                        "To explore the Iris Dataset, click the 'Flights' tab."
+                    ),
                     
                 ),
                 ui.tags.hr(),
@@ -81,6 +90,13 @@ app_ui = ui.page_navbar(
         ui.layout_sidebar(
             get_penguins_inputs(),
             get_penguins_outputs(),
+        ),
+    ),
+    ui.nav(
+        "Iris",
+        ui.layout_sidebar(
+            get_iris_inputs(),
+            get_iris_outputs(),
         ),
     ),
     ui.nav(
@@ -121,6 +137,7 @@ def server(input, output, session):
     get_mtcars_server_functions(input, output, session)
     get_penguins_server_functions(input, output, session)
     get_iris_server_functions(input, output, session)
+    get_flights_server_functions(input, output, session)
     
 
     
