@@ -108,10 +108,4 @@ def get_penguins_server_functions(input, output, session):
     ]
 
 
-   
 
-    # return a list of function names for use in reactive outputs
-    return [
-        penguins_filtered_table,
-        penguins_record_count_string,
-    ]
