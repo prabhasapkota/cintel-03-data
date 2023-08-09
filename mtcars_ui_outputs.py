@@ -5,6 +5,9 @@ Choose the correct ui method for the type of output you want to display.
 Provide the exact name of the server function that will provide the output.
 """
 from shiny import ui
+from shinywidgets import output_widget
+
+
 
 
 def get_mtcars_outputs():
@@ -13,7 +16,7 @@ def get_mtcars_outputs():
         ui.tags.hr(),
         ui.tags.section(
             ui.h3("Filtered Cars: Charts"),
-            ui.output_widget("mtcars_output_widget1"),
+            output_widget("mtcars_output_widget1"),
             ui.output_plot("mtcars_plot1"),
             ui.output_plot("mtcars_plot2"),
             ui.tags.hr(),
