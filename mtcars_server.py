@@ -1,9 +1,6 @@
 """ 
 Purpose: Provide reactive output for MT Cars dataset.
 
-Matching the IDs in the UI Sidebar and function/output names in the UI Main Panel
-to this server code is critical. They are case sensitive and must match exactly.
-
 """
 import pathlib
 from shiny import render, reactive
@@ -76,14 +73,6 @@ def get_mtcars_server_functions(input, output, session):
         return message
     
     @output
-    @render_widget
-    def mtcars_output_widget1():
-        df = reactive_df.get()
-        plotly_express_plot = px.scatter(df, x="mpg", y="hp", color="cyl", size="wt")
-        plotly_express_plot.update_layout(title="MT Cars with Plotly Express")
-        return plotly_express_plot
-
-    @output
     @render.plot
     def mtcars_plot1():
         df = reactive_df.get()
@@ -109,7 +98,6 @@ def get_mtcars_server_functions(input, output, session):
     return [
         mtcars_record_count_string,
         mtcars_filtered_table,
-        mtcars_output_widget1,
         mtcars_plot1,
         mtcars_plot2,
     ]
