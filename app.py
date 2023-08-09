@@ -1,6 +1,6 @@
 """
 Purpose: Use Python to create a continuous intelligence and 
-interactive analytics dashboard using Shiny for Python.
+
 
 
 Each Shiny app has two parts: 
@@ -112,7 +112,7 @@ app_ui = ui.page_navbar(
     ui.nav(ui.a("App", href="https://prabha23.shinyapps.io/cintel-03-data/")),
     ui.nav(ui.a("Examples", href="https://shinylive.io/py/examples/")),
     ui.nav(ui.a("Themes", href="https://bootswatch.com/")),
-    title=ui.h1("Prabha's Dashboard"),
+    title=ui.h1("PRABHA Dashboard"),
 )
 
 
