@@ -62,6 +62,9 @@ app_ui = ui.page_navbar(
                     ui.tags.li(
                         "To explore the Iris Dataset, click the 'Iris' tab."
                     ),
+                    ui.tags.li(
+                        "To explore the Flights Dataset, click the 'Flights' tab."
+                    ),
     ),
                 ui.tags.hr(),
                 ui.h2("Main Panel with Reactive Output"),
@@ -105,7 +108,7 @@ app_ui = ui.page_navbar(
 
 
 def server(input, output, session):
-    
+    """Define functions to create UI outputs."""
 
     @output
     @render.text
@@ -129,5 +132,5 @@ def server(input, output, session):
 
     
     
-
+# app = App(app_ui, server, debug=True)
 app = App(app_ui, server)
