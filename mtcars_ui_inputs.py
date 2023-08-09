@@ -1,5 +1,5 @@
 """
-Purpose: Provide user interaction options for the MT Cars dataset.
+Purpose: Provide user interaction options for MT Cars dataset.
 
 IDs must be unique. They are capitalized in this app for clarity (not typical).
 The IDs are case-sensitive and must match the server code exactly.
