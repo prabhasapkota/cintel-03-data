@@ -37,11 +37,11 @@ def get_iris_server_functions(input, output, session):
     def _():
         df = original_df.copy()
 
-        input_range = input.MTCARS_MPG_RANGE()
+        input_range = input.IRIS_SEPAL_LENGTH_RANGE()
         input_min = input_range[0]
         input_max = input_range[1]
         
-        iris_sepal_length_filter = (df["sepal_length"] >= input_min) & (df["sepal_length"] <= input_max)
+        iris_sepal_length_filter = (df["sepal_length"] > input_min) & (df["sepal_length"] < input_max)
         df = df[iris_sepal_length_filter]
 
          # Set the reactive value

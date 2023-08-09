@@ -90,8 +90,15 @@ def get_mtcars_server_functions(input, output, session):
             + geom_point()
             + ggtitle("MT Cars with plotnine")
         )
-
         return plotnine_plot
+
+    @output
+    @render_widget
+    def mtcars_output_widget1():
+        df = reactive_df.get()
+        plotly_express_plot = px.scatter(df, x="mpg", y="hp", color="cyl", size="wt")
+        plotly_express_plot.update_layout(title="MT Cars with Plotly Express")
+        return plotly_express_plot
 
 
     # return a list of function names for use in reactive outputs
@@ -100,5 +107,6 @@ def get_mtcars_server_functions(input, output, session):
         mtcars_filtered_table,
         mtcars_plot1,
         mtcars_plot2,
+        mtcars_output_widget1,
     ]
  
