@@ -103,8 +103,8 @@ def get_mtcars_server_functions(input, output, session):
 
     # return a list of function names for use in reactive outputs
     return [
-        mtcars_record_count_string,
         mtcars_filtered_table,
+        mtcars_record_count_string,
         mtcars_plot1,
         mtcars_plot2,
         mtcars_output_widget1,
