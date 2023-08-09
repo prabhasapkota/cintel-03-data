@@ -62,6 +62,36 @@ def get_iris_server_functions(input, output, session):
         message = f"Showing {filtered_count} of {total_count} records"
         #logger.debug(f"filter message: {message}")
         return message
+    
+    @output
+    @render_widget
+    def iris_output_widget1():
+        df = reactive_df.get()
+        plotly_express_plot = px.scatter(df, x="sepal_length", y="sepal_width", color="petal_length", size="petal_width")
+        plotly_express_plot.update_layout(title="Iris with Plotly Express")
+        return plotly_express_plot
+
+    @output
+    @render.plot
+    def iris_plot1():
+        df = reactive_df.get()
+        matplotlib_fig, ax = plt.subplots()
+        plt.title("Iris Cars with matplotlib")
+        ax.scatter(df["sepal_length"], df["sepal_width"])
+        return matplotlib_fig
+
+    @output
+    @render.plot
+    def iris_plot2():
+        df = reactive_df.get()
+        plotnine_plot = (
+            ggplot(df, aes("sepal_length", "sepal_width"))
+            + geom_point()
+            + ggtitle("Iris with plotnine")
+        )
+
+        return plotnine_plot
+
 
     
 
@@ -69,5 +99,7 @@ def get_iris_server_functions(input, output, session):
     functions = [
         iris_filtered_table,
         iris_record_count_string,
-      
+        iris_output_widget1,
+        iris_plot1,
+        iris_plot2,
     ]
