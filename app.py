@@ -5,7 +5,7 @@ interactive analytics dashboard using Shiny for Python.
 
 shiny has two parts:
 - a user interface app_ui object (similar to the HTML in a web page) 
-- a server function that provides the logic for the app (similar to JS in a web page).
+- a server function that provides the logic for the app.
 
 """
 import shinyswatch
