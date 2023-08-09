@@ -1,6 +1,6 @@
 # Interactive Analytics with Shiny
 
-We follow the same, consistent process to create and deploy a new Shiny app. Repeating these common tasks helps build skills and comfort with professional tools and processes. The instructions become more concise as we repeat things. For more detailed instructions, refer back to the earlier [SHINY.md](https://github.com/prabhasapkota/cintel-02-app/blob/main/SHINY.md).
+We follow the same, consistent process to create and deploy a new Shiny app. For more detailed instructions, refer back to the earlier [SHINY.md](https://github.com/prabhasapkota/cintel-02-app/blob/main/SHINY.md).
 
 ## Create a Virtual Environment
 
