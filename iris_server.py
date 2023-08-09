@@ -67,39 +67,21 @@ def get_iris_server_functions(input, output, session):
     @render_widget
     def iris_output_widget1():
         df = reactive_df.get()
-        plotly_express_plot = px.scatter(df, x="sepal_length", y="sepal_width", color="petal_length", size="petal_width")
-        plotly_express_plot.update_layout(title="Iris with Plotly Express")
-        return plotly_express_plot
-
-    @output
-    @render.plot
-    def iris_plot1():
-        df = reactive_df.get()
-        matplotlib_fig, ax = plt.subplots()
-        plt.title("Iris Cars with matplotlib")
-        ax.scatter(df["sepal_length"], df["sepal_width"])
-        return matplotlib_fig
-
-    @output
-    @render.plot
-    def iris_plot2():
-        df = reactive_df.get()
-        plotnine_plot = (
-            ggplot(df, aes("sepal_length", "sepal_width"))
-            + geom_point()
-            + ggtitle("Iris with plotnine")
+        px_plot = px.scatter(
+            df,
+            x="sepal_length",
+            y="sepal_width",
+            title="Iris Scatter Chart (Plotly Express)",
+            color="species",
         )
-
-        return plotnine_plot
-
+        return px_plot
 
     
+
 
     # Return a list of function names for use in reactive outputs
     functions = [
         iris_filtered_table,
         iris_record_count_string,
         iris_output_widget1,
-        iris_plot1,
-        iris_plot2,
     ]

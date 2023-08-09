@@ -15,8 +15,6 @@ def get_iris_outputs():
         ui.tags.section(
             ui.h3("Filtered Iris: Charts"),
             output_widget("iris_output_widget1"),
-            ui.output_plot("iris_plot1"),
-            ui.output_plot("iris_plot2"),
             ui.tags.hr(),
             ui.h3("Filtered Iris Table"),
             ui.output_text("iris_record_count_string"),
