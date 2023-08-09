@@ -85,7 +85,7 @@ app_ui = ui.page_navbar(
 
 
 def server(input, output, session):
-    """Define functions to create UI outputs."""
+    
 
     @output
     @render.text
