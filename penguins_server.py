@@ -30,7 +30,7 @@ def get_penguins_server_functions(input, output, session):
     original_df = pd.read_excel(path_to_data)
     total_count = len(original_df)
 
-# Create a reactive value to hold the filtered pandas dataframe
+    # Create a reactive value to hold the filtered pandas dataframe
     reactive_df = reactive.Value()
 
     # Create a reactive effect to set the reactive value when inputs change
@@ -82,6 +82,30 @@ def get_penguins_server_functions(input, output, session):
         message = f"Showing {filtered_count} of {total_count} records"
         # logger.debug(f"filter message: {message}")
         return message
+    @output
+    @render_widget
+    def penguins_output_widget1():
+        df = reactive_df.get()
+        plotly_plot = px.scatter(
+            df,
+            x="bill_length_mm",
+            y="body_mass_g",
+            color="species",
+            title="Penguins Plot (Plotly Express))",
+            labels={
+                "bill_length_mm": "Bill Length (mm)",
+                "body_mass_g": "Body Mass (g)",
+            },
+            size_max=8,
+        )
+        return plotly_plot
+    
+    # return a list of function names for use in reactive outputs
+    return [
+        penguins_record_count_string,
+        penguins_filtered_table,
+        penguins_output_widget1,
+    ]
 
 
    

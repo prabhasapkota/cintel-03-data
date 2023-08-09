@@ -6,6 +6,7 @@ Provide the exact name of the server function that will provide the output.
 
 """
 from shiny import ui
+from shinywidgets import output_widget
 
 
 
@@ -16,6 +17,7 @@ def get_penguins_outputs():
         ui.tags.hr(),
         ui.tags.section(
             ui.h3("Filtered Penguins: Charts"),
+            output_widget("penguins_output_widget1"),
             ui.tags.hr(),
             ui.h3("Filtered Penguins Table"),
             ui.output_text("penguins_record_count_string"),
