@@ -100,10 +100,10 @@ app_ui = ui.page_navbar(
         ),
     ),
     ui.nav(
-        "Iris",
+        "Flights",
         ui.layout_sidebar(
-            get_iris_inputs(),
-            get_iris_outputs(),
+            get_flights_inputs(),
+            get_flights_outputs(),
         ),
     ),
     
