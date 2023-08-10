@@ -19,6 +19,11 @@ from penguins_server import get_penguins_server_functions
 from penguins_ui_inputs import get_penguins_inputs
 from penguins_ui_outputs import get_penguins_outputs
 
+from titanic_server import get_titanic_server_functions
+from titanic_ui_inputs import get_titanic_inputs
+from titanic_ui_outputs import get_titanic_outputs
+
+
 from util_logger import setup_logger
 
 logger, logname = setup_logger(__name__)
@@ -50,6 +55,9 @@ app_ui = ui.page_navbar(
                     ui.tags.li(
                         "To explore the MotorTrend Car dataset, click the 'Penguins' tab."
                     ),
+                    ui.tags.li(
+                        "To explore the Titanic dataset, click the 'Titanic' tab."
+                    ),
                 ),
                 ui.tags.hr(),
                 ui.h2("Main Panel with Reactive Output"),
@@ -72,6 +80,13 @@ app_ui = ui.page_navbar(
         ui.layout_sidebar(
             get_penguins_inputs(),
             get_penguins_outputs(),
+        ),
+    ),
+     ui.nav(
+        "Titanic",
+        ui.layout_sidebar(
+            get_titanic_inputs(),
+            get_titanic_outputs(),
         ),
     ),
     
@@ -107,6 +122,7 @@ def server(input, output, session):
     logger.info("Starting server...")
     get_mtcars_server_functions(input, output, session)
     get_penguins_server_functions(input, output, session)
+    get_titanic_server_functions(input, output, session)
    
     
     
