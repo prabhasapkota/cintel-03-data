@@ -5,11 +5,9 @@ def get_titanic_inputs():
     return ui.panel_sidebar(
         ui.h2("Titanic Interaction"),
         ui.tags.hr(),
-        ui.input_radio_buttons(
-            "TITANIC_SEX",
-            "Select Sex",
-            {"a": "All (includes missing values)", "f": "Female", "m": "Male"},
-            selected="a",
+        ui.input_numeric("TITANIC_MAX_AGE", "Max age:", value=55.0),
+        ui.tags.hr(),
+        ui.tags.section(
         ),
         ui.tags.hr(),
         ui.p("🕒 Please be patient. Outputs may take a few seconds to load."),

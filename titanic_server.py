@@ -18,7 +18,7 @@ from util_logger import setup_logger
 
 logger, logname = setup_logger(__name__)
 
-def get_mtcars_server_functions(input, output, session):
+def get_titanic_server_functions(input, output, session):
     """Define functions to create UI outputs."""
 
     p = pathlib.Path(__file__).parent.joinpath("data").joinpath("titanic.csv")
@@ -29,19 +29,15 @@ def get_mtcars_server_functions(input, output, session):
     reactive_df = reactive.Value()
 
     @reactive.Effect
-    @reactive.event(input.TITANIC_SEX,)
+    @reactive.event(input.TITANIC_AGE)
 
 
     def _():
 
         df = original_df.copy()
 
-        # Gender is a radio button
-        input_sex = input.TITANIC_SEX()
-        sex_dict = {"a": "All", "f": "Female", "m": "Male"}
-        if input_sex != "a":
-            gender_filter = df["gender"] == sex_dict[input_sex]
-            df = df[gender_filter]
+        age_filter = df["age"] < input.TITANIC_MAX_AGE()
+        df = df[age_filter]
 
         # logger.debug(f"filtered penguins df: {df}")
         reactive_df.set(df)
