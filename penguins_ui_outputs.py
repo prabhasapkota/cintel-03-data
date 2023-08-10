@@ -1,14 +1,11 @@
 """
-Purpose: Display outputs for Penguins dataset.
+Purpose: Display output for Penguins dataset.
 
-Choose the correct ui method for the type of output you want to display.
-Provide the exact name of the server function that will provide the output.
-
+@imports shiny.ui as ui
+@imports shinywidgets.output_widget for interactive charts
 """
 from shiny import ui
 from shinywidgets import output_widget
-
-
 
 
 def get_penguins_outputs():

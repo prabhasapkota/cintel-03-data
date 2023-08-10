@@ -13,7 +13,6 @@ Preface IDs with the dataset name to avoid naming conflicts.
 from shiny import ui
 
 
-
 def get_penguins_inputs():
     return ui.panel_sidebar(
         ui.h2("Penguins Interaction"),
@@ -26,6 +25,15 @@ def get_penguins_inputs():
             value=[2700, 6300],
         ),
         ui.input_numeric("PENGUIN_MAX_BILL", "Max Bill Length (mm):", value=60.0),
+        ui.input_checkbox("PENGUIN_SPECIES_Adelie", "Adelie", value=True),
+        ui.input_checkbox("PENGUIN_SPECIES_Chinstrap", "Chinstrap", value=True),
+        ui.input_checkbox("PENGUIN_SPECIES_Gentoo", "Gentoo", value=True),
+        ui.input_radio_buttons(
+            "PENGUIN_GENDER",
+            "Select Genders",
+            {"a": "All (includes missing values)", "f": "Female", "m": "Male"},
+            selected="a",
+        ),
         ui.tags.hr(),
         ui.p("🕒 Please be patient. Outputs may take a few seconds to load."),
         ui.tags.hr(),
