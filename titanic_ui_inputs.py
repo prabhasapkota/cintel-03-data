@@ -6,10 +6,10 @@ def get_titanic_inputs():
         ui.h2("Titanic Interaction"),
         ui.tags.hr(),
         ui.input_radio_buttons(
-            "Titanic_Sex",
+            "TITANIC_SEX",
             "Select Sex",
-            {"f": "Female", "m": "Male"},
-            selected="f",
+            {"a": "All (includes missing values)", "f": "Female", "m": "Male"},
+            selected="a",
         ),
         ui.tags.hr(),
         ui.p("🕒 Please be patient. Outputs may take a few seconds to load."),
