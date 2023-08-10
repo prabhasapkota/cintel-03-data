@@ -48,7 +48,7 @@ app_ui = ui.page_navbar(
                         "To explore the MotorTrend Car dataset, click the 'MT_Cars' tab."
                     ),
                     ui.tags.li(
-                        "To explore the MotorTrend Car dataset, click the 'MT_Cars' tab."
+                        "To explore the MotorTrend Car dataset, click the 'Penguins' tab."
                     ),
                 ),
                 ui.tags.hr(),
@@ -74,8 +74,6 @@ app_ui = ui.page_navbar(
             get_penguins_outputs(),
         ),
     ),
-    
-    
     
     ui.nav(ui.a("About", href="https://github.com/prabhasapkota")),
     ui.nav(ui.a("GitHub", href="https://github.com/prabhasapkota/cintel-03-data")),
