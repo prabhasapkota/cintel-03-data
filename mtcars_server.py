@@ -4,8 +4,6 @@ Purpose: Provide reactive output for the MT Cars dataset.
 - Use inputs from the UI Sidebar to filter the dataset.
 - Update reactive outputs in the UI Main Panel.
 
-Matching the IDs in the UI Sidebar and function/output names in the UI Main Panel
-to this server code is critical. They are case sensitive and must match exactly.
 
 """
 import pathlib
