@@ -38,10 +38,10 @@ def get_mtcars_server_functions(input, output, session):
 
         # Gender is a radio button
         input_sex = input.TITANIC_SEX()
-        sex_dict = {"f": "Female", "m": "Male"}
-        if input_sex != "f":
-            sex_filter = df["gender"] == sex_dict[input_sex]
-            df = df[sex_filter]
+        sex_dict = {"a": "All", "f": "Female", "m": "Male"}
+        if input_sex != "a":
+            gender_filter = df["gender"] == sex_dict[input_sex]
+            df = df[gender_filter]
 
         # logger.debug(f"filtered penguins df: {df}")
         reactive_df.set(df)
