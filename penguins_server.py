@@ -25,7 +25,7 @@ def get_penguins_server_functions(input, output, session):
 
     p = pathlib.Path(__file__).parent.joinpath("data").joinpath("penguins.csv")
     # logger.info(f"Reading data from {p}")
-    original_df = pd.read_excel(p)
+    original_df = pd.read_csvl(p)
     total_count = len(original_df)
 
     # Create a reactive value to hold the filtered pandas dataframe
