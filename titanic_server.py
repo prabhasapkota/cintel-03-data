@@ -1,5 +1,5 @@
 """ 
-Purpose: Provide reactive output for the MT Cars dataset.
+Purpose: Provide reactive output for the Titanic dataset.
 
 - Use inputs from the UI Sidebar to filter the dataset.
 - Update reactive outputs in the UI Main Panel.
@@ -29,7 +29,7 @@ def get_titanic_server_functions(input, output, session):
     reactive_df = reactive.Value()
 
     @reactive.Effect
-    @reactive.event(input.TITANIC_AGE)
+    @reactive.event(input.TITANIC_MAX_AGE)
 
 
     def _():
@@ -61,7 +61,7 @@ def get_titanic_server_functions(input, output, session):
     @render_widget
     def titanic_output_widget1():
         df = reactive_df.get()
-        plotly_express_plot = px.scatter(df, x="survived", y="pclass", color="age", size="fare")
+        plotly_express_plot = px.scatter(df, x="age", y="pclass", color="survived", size="fare")
         plotly_express_plot.update_layout(title="Titanic with Plotly Express")
         return plotly_express_plot
     

@@ -2,7 +2,7 @@ from shiny import ui
 from shinywidgets import output_widget
 
 
-def get_penguins_outputs():
+def get_titanic_outputs():
     return ui.panel_main(
         ui.h2("Main Panel with Reactive Output"),
         ui.tags.hr(),
