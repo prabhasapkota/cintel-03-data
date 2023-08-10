@@ -23,7 +23,7 @@ logger, logname = setup_logger(__name__)
 def get_penguins_server_functions(input, output, session):
     """Define functions to create UI outputs."""
 
-    p = pathlib.Path(__file__).parent.joinpath("data").joinpath("penguins.xlsx")
+    p = pathlib.Path(__file__).parent.joinpath("data").joinpath("penguins.csv")
     # logger.info(f"Reading data from {p}")
     original_df = pd.read_excel(p)
     total_count = len(original_df)
