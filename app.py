@@ -24,7 +24,7 @@ from util_logger import setup_logger
 logger, logname = setup_logger(__name__)
 
 app_ui = ui.page_navbar(
-    shinyswatch.theme.darkly(),
+    shinyswatch.theme.vapor(),
     ui.nav(
         "Home",
         ui.layout_sidebar(
@@ -50,7 +50,7 @@ app_ui = ui.page_navbar(
                     ui.tags.li(
                         "To explore the Penguins Dataset, click the 'Penguins' tab."
                     ),
-                    ),
+                ),
                 ui.tags.hr(),
                 ui.h2("Main Panel with Reactive Output"),
                 ui.tags.hr(),
@@ -103,12 +103,13 @@ def server(input, output, session):
         language_string = f"You are from {answer}. That takes {count} characters"
         return language_string
 
+
+
+    logger.info("Starting server...")
     get_mtcars_server_functions(input, output, session)
     get_penguins_server_functions(input, output, session)
     
     
 
     
-    
-
 app = App(app_ui, server)
