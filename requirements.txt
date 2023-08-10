@@ -8,4 +8,6 @@ rsconnect-python
 seaborn
 shiny 
 shinyswatch 
-plotline
+plotnine
+plotly
+shinywidgets
