@@ -9,12 +9,11 @@ to this server code is critical. They are case sensitive and must match exactly.
 
 """
 import pathlib
+
 from shiny import render, reactive
 import pandas as pd
-import seaborn as sns
 from shinywidgets import render_widget
 import plotly.express as px
-
 
 from util_logger import setup_logger
 
@@ -24,10 +23,9 @@ logger, logname = setup_logger(__name__)
 def get_penguins_server_functions(input, output, session):
     """Define functions to create UI outputs."""
 
-    path_to_data = (
-        pathlib.Path(__file__).parent.joinpath("data").joinpath("penguins.xlsx")
-    )
-    original_df = pd.read_excel(path_to_data)
+    p = pathlib.Path(__file__).parent.joinpath("data").joinpath("penguins.xlsx")
+    # logger.info(f"Reading data from {p}")
+    original_df = pd.read_excel(p)
     total_count = len(original_df)
 
     # Create a reactive value to hold the filtered pandas dataframe
@@ -40,8 +38,11 @@ def get_penguins_server_functions(input, output, session):
     @reactive.event(
         input.PENGUIN_BODY_MASS_RANGE,
         input.PENGUIN_MAX_BILL,
+        input.PENGUIN_SPECIES_Adelie,
+        input.PENGUIN_SPECIES_Chinstrap,
+        input.PENGUIN_SPECIES_Gentoo,
+        input.PENGUIN_GENDER,
     )
-
     def _():
         """Reactive effect to update the filtered dataframe when inputs change.
         This is the only way to set a reactive value (after initialization).
@@ -50,7 +51,7 @@ def get_penguins_server_functions(input, output, session):
         # logger.info("UI inputs changed. Updating penguins reactive df")
 
         df = original_df.copy()
-        
+
         # Body mass is a range
         input_range = input.PENGUIN_BODY_MASS_RANGE()
         input_min = input_range[0]
@@ -64,16 +65,28 @@ def get_penguins_server_functions(input, output, session):
         bill_length_filter = df["bill_length_mm"] <= input.PENGUIN_MAX_BILL()
         df = df[bill_length_filter]
 
-        
+        # Species is a list of checkboxes (a list of possible values)
+        show_species_list = []
+        if input.PENGUIN_SPECIES_Adelie():
+            show_species_list.append("Adelie")
+        if input.PENGUIN_SPECIES_Chinstrap():
+            show_species_list.append("Chinstrap")
+        if input.PENGUIN_SPECIES_Gentoo():
+            show_species_list.append("Gentoo")
+        show_species_list = show_species_list or ["Adelie", "Chinstrap", "Gentoo"]
+        species_filter = df["species"].isin(show_species_list)
+        df = df[species_filter]
+
+        # Gender is a radio button
+        input_gender = input.PENGUIN_GENDER()
+        gender_dict = {"a": "All", "f": "Female", "m": "Male"}
+        if input_gender != "a":
+            gender_filter = df["sex"] == gender_dict[input_gender]
+            df = df[gender_filter]
+
         # logger.debug(f"filtered penguins df: {df}")
         reactive_df.set(df)
 
-    @output
-    @render.table
-    def penguins_filtered_table():
-        filtered_df = reactive_df.get()
-        return filtered_df
-    
     @output
     @render.text
     def penguins_record_count_string():
@@ -82,7 +95,13 @@ def get_penguins_server_functions(input, output, session):
         message = f"Showing {filtered_count} of {total_count} records"
         # logger.debug(f"filter message: {message}")
         return message
-    
+
+    @output
+    @render.table
+    def penguins_filtered_table():
+        filtered_df = reactive_df.get()
+        return filtered_df
+
     @output
     @render_widget
     def penguins_output_widget1():
@@ -99,14 +118,12 @@ def get_penguins_server_functions(input, output, session):
             },
             size_max=8,
         )
+
         return plotly_plot
-    
+
     # return a list of function names for use in reactive outputs
     return [
-        penguins_filtered_table,
         penguins_record_count_string,
+        penguins_filtered_table,
         penguins_output_widget1,
     ]
-
-
-
