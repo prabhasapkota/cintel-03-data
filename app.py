@@ -15,10 +15,6 @@ from mtcars_server import get_mtcars_server_functions
 from mtcars_ui_inputs import get_mtcars_inputs
 from mtcars_ui_outputs import get_mtcars_outputs
 
-from penguins_server import get_penguins_server_functions
-from penguins_ui_inputs import get_penguins_inputs
-from penguins_ui_outputs import get_penguins_outputs
-
 from util_logger import setup_logger
 
 logger, logname = setup_logger(__name__)
@@ -47,9 +43,6 @@ app_ui = ui.page_navbar(
                     ui.tags.li(
                         "To explore the MotorTrend Car dataset, click the 'MT_Cars' tab."
                     ),
-                    ui.tags.li(
-                        "To explore the Penguins Dataset, click the 'Penguins' tab."
-                    ),
                 ),
                 ui.tags.hr(),
                 ui.h2("Main Panel with Reactive Output"),
@@ -67,13 +60,7 @@ app_ui = ui.page_navbar(
             get_mtcars_outputs(),
         ),
     ),
-    ui.nav(
-        "Penguins",
-        ui.layout_sidebar(
-            get_penguins_inputs(),
-            get_penguins_outputs(),
-        ),
-    ),
+    
     
     
     ui.nav(ui.a("About", href="https://github.com/prabhasapkota")),
@@ -107,7 +94,7 @@ def server(input, output, session):
 
     logger.info("Starting server...")
     get_mtcars_server_functions(input, output, session)
-    get_penguins_server_functions(input, output, session)
+   
     
     
 
